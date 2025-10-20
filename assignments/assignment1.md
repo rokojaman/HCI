@@ -9,4 +9,4 @@ Ime aplikacije izgrađene u sklopu ovog projekta je QuickBuy. Ova aplikacija rje
 
 ## Video pitch
 
-- Link na video
+- https://www.youtube.com/shorts/MGoDOKxYC0k
