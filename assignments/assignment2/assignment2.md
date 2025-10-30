@@ -6,6 +6,7 @@
 ## User Personas
 
 ### 🧍‍♀️ Persona 1: **Marija Kovačević – The Practical Shopper**
+![Marija Kovačević](./images/Marija.png)
 
 **Age:** 56  
 **Location:** Osijek, Croatia  
