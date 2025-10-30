@@ -1,7 +1,11 @@
 # User personas and information architecture
 
 - [User Personas](#user-personas)
+  - [Persona 1 – Marija Kovačević](#-persona-1-marija-kovačević--the-practical-shopper)
+  - [Persona 2 – Luka Horvat](#-persona-2-luka-horvat--the-busy-professional)
+  - [Persona 3 – Ana Radić](#-persona-3-ana-radić--the-student-on-a-budget)
 - [Sitemap](#sitemap)
+
 
 ## User Personas
 
