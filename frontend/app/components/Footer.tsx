@@ -5,15 +5,15 @@ export function Footer() {
   return (
     <footer className="bg-zinc-950 text-zinc-50 py-12">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
-          <div className="space-y-4 flex flex-col items-center md:items-start">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-left">
+          <div className="space-y-4 flex flex-col items-start">
             <h3 className="text-xl font-bold">QuickBuy</h3>
             <p className="text-zinc-400 text-sm max-w-xs">
               Your one-stop shop for everything you need. Quality products, fast
               shipping, and excellent customer service.
             </p>
           </div>
-          <div className="flex flex-col items-center md:items-start">
+          <div className="flex flex-col items-start">
             <h4 className="font-semibold mb-4">Shop</h4>
             <ul className="space-y-2 text-sm text-zinc-400">
               <li>
@@ -33,7 +33,7 @@ export function Footer() {
               </li>
             </ul>
           </div>
-          <div className="flex flex-col items-center md:items-start">
+          <div className="flex flex-col items-start">
             <h4 className="font-semibold mb-4">Support</h4>
             <ul className="space-y-2 text-sm text-zinc-400">
               <li>
@@ -53,7 +53,7 @@ export function Footer() {
               </li>
             </ul>
           </div>
-          <div className="flex flex-col items-center md:items-start">
+          <div className="flex flex-col items-start">
             <h4 className="font-semibold mb-4">Connect</h4>
             <div className="flex space-x-4">
               <Link href="#" className="text-zinc-400 hover:text-white transition-colors">

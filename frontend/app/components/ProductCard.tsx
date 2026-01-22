@@ -34,7 +34,7 @@ export function ProductCard({ product }: ProductCardProps) {
             {product.category}
         </Link>
         <Link href={`/product/${product.id}`} className="block">
-            <h3 className="font-semibold text-lg leading-tight mb-2 line-clamp-2 hover:text-primary transition-colors">
+            <h3 className="font-semibold text-lg leading-tight mb-2 line-clamp-2 hover:text-primary transition-colors group-hover:underline">
             {product.title}
             </h3>
         </Link>

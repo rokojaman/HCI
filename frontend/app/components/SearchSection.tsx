@@ -2,14 +2,14 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Search, Loader2, Tag } from "lucide-react";
+import { Search, Loader2, Tag, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { searchProductsAction } from "@/app/actions";
 import { Product } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
-// Implementing simple debounce logic inside component for now
 function useDebounceValue<T>(value: T, delay: number): T {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
@@ -47,8 +47,8 @@ export function SearchSection() {
       setIsLoading(true);
       try {
         const data = await searchProductsAction(debouncedQuery);
-        setProducts(data.products.slice(0, 5));
-        setCategories(data.categories);
+        setProducts(data.products.slice(0, 4)); // Limit to 4
+        setCategories(data.categories.slice(0, 4)); // Limit to 4
         setShowResults(true);
       } catch (error) {
         console.error("Search failed:", error);
@@ -84,6 +84,11 @@ export function SearchSection() {
     setShowResults(false);
     setQuery("");
   };
+  
+  const handleViewAll = () => {
+      router.push(`/shop?search=${encodeURIComponent(query)}`);
+      setShowResults(false);
+  }
 
   return (
     <div className="w-full max-w-2xl mx-auto relative z-40 mt-6" ref={containerRef}>
@@ -108,7 +113,7 @@ export function SearchSection() {
       </div>
 
       {showResults && (products.length > 0 || categories.length > 0) && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-popover text-popover-foreground rounded-md shadow-lg border overflow-hidden max-h-[80vh] overflow-y-auto">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-popover text-popover-foreground rounded-md shadow-lg border overflow-hidden">
           {categories.length > 0 && (
             <div className="p-2 border-b">
                 <h3 className="text-xs font-semibold text-muted-foreground mb-2 px-2 uppercase tracking-wider">Categories</h3>
@@ -156,6 +161,13 @@ export function SearchSection() {
                 </ul>
               </div>
           )}
+          
+          <div className="p-2 border-t bg-muted/30">
+              <Button variant="ghost" className="w-full justify-between h-9 text-xs" onClick={handleViewAll}>
+                  View all results for "{query}"
+                  <ArrowRight className="h-3 w-3" />
+              </Button>
+          </div>
         </div>
       )}
       

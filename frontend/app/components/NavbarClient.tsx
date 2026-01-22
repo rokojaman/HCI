@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, LogIn } from "lucide-react";
+import { Menu, LogIn, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -19,6 +19,11 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -28,6 +33,7 @@ interface NavbarClientProps {
 
 export function NavbarClient({ categories }: NavbarClientProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const pathname = usePathname();
 
   return (
@@ -44,7 +50,7 @@ export function NavbarClient({ categories }: NavbarClientProps) {
             <NavigationMenuList>
               <NavigationMenuItem>
                 <Link href="/" legacyBehavior passHref>
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), pathname === "/" && "text-primary")}>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), pathname === "/" && "underline decoration-2 underline-offset-4 text-primary")}>
                     Home
                   </NavigationMenuLink>
                 </Link>
@@ -52,14 +58,14 @@ export function NavbarClient({ categories }: NavbarClientProps) {
               
               <NavigationMenuItem>
                 <Link href="/shop" legacyBehavior passHref>
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), pathname === "/shop" && "text-primary")}>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), pathname === "/shop" && "underline decoration-2 underline-offset-4 text-primary")}>
                     Shop
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className={cn(pathname.startsWith("/shop") && pathname.includes("category") && "text-primary")}>
+                <NavigationMenuTrigger className={cn(pathname.startsWith("/shop") && pathname.includes("category") && "underline decoration-2 underline-offset-4 text-primary")}>
                     Categories
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -85,7 +91,7 @@ export function NavbarClient({ categories }: NavbarClientProps) {
 
               <NavigationMenuItem>
                 <Link href="/deals" legacyBehavior passHref>
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), pathname === "/deals" && "text-primary")}>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), pathname === "/deals" && "underline decoration-2 underline-offset-4 text-primary")}>
                     Deals
                   </NavigationMenuLink>
                 </Link>
@@ -93,7 +99,7 @@ export function NavbarClient({ categories }: NavbarClientProps) {
 
               <NavigationMenuItem>
                 <Link href="/about" legacyBehavior passHref>
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), pathname === "/about" && "text-primary")}>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), pathname === "/about" && "underline decoration-2 underline-offset-4 text-primary")}>
                     About
                   </NavigationMenuLink>
                 </Link>
@@ -125,60 +131,67 @@ export function NavbarClient({ categories }: NavbarClientProps) {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="flex flex-col h-full">
-              <SheetTitle>
-                <span className="text-primary font-bold">Quick</span>Buy Menu
+            <SheetContent side="right" className="flex flex-col h-full p-6">
+              <SheetTitle className="sr-only">
+                Mobile Menu
               </SheetTitle>
               <div className="flex flex-col gap-6 mt-6 flex-1 overflow-y-auto">
                 <nav className="flex flex-col gap-4">
                   <Link
                     href="/"
-                    className={cn("text-lg font-medium transition-colors hover:text-primary", pathname === "/" && "text-primary")}
+                    className={cn("text-lg font-medium transition-colors hover:text-primary p-2", pathname === "/" && "underline decoration-2 underline-offset-4 text-primary")}
                     onClick={() => setIsOpen(false)}
                   >
                     Home
                   </Link>
                    <Link
                     href="/shop"
-                    className={cn("text-lg font-medium transition-colors hover:text-primary", pathname === "/shop" && "text-primary")}
+                    className={cn("text-lg font-medium transition-colors hover:text-primary p-2", pathname === "/shop" && "underline decoration-2 underline-offset-4 text-primary")}
                     onClick={() => setIsOpen(false)}
                   >
                     Shop
                   </Link>
                   
-                  <div className="flex flex-col gap-2">
-                    <span className="text-lg font-medium text-foreground/60">Categories</span>
-                    <div className="grid grid-cols-2 gap-2 pl-4">
-                        {categories.map((category) => (
-                            <Link
-                                key={category}
-                                href={`/shop?category=${category}`}
-                                className="text-sm text-muted-foreground capitalize hover:text-primary"
-                                onClick={() => setIsOpen(false)}
-                            >
-                                {category.replace("-", " ")}
-                            </Link>
-                        ))}
-                    </div>
-                  </div>
+                  <Collapsible open={isCategoriesOpen} onOpenChange={setIsCategoriesOpen} className="w-full">
+                    <CollapsibleTrigger asChild>
+                      <button className="flex items-center justify-between w-full text-lg font-medium hover:text-primary p-2">
+                        Categories
+                        <ChevronDown className={cn("h-4 w-4 transition-transform", isCategoriesOpen && "rotate-180")} />
+                      </button>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="space-y-2 mt-2">
+                      <div className="flex flex-col gap-2 pl-4 border-l ml-2">
+                          {categories.map((category) => (
+                              <Link
+                                  key={category}
+                                  href={`/shop?category=${category}`}
+                                  className="text-base text-muted-foreground capitalize hover:text-primary py-1"
+                                  onClick={() => setIsOpen(false)}
+                              >
+                                  {category.replace("-", " ")}
+                              </Link>
+                          ))}
+                      </div>
+                    </CollapsibleContent>
+                  </Collapsible>
 
                   <Link
                     href="/deals"
-                    className={cn("text-lg font-medium transition-colors hover:text-primary", pathname === "/deals" && "text-primary")}
+                    className={cn("text-lg font-medium transition-colors hover:text-primary p-2", pathname === "/deals" && "underline decoration-2 underline-offset-4 text-primary")}
                     onClick={() => setIsOpen(false)}
                   >
                     Deals
                   </Link>
                   <Link
                     href="/about"
-                    className={cn("text-lg font-medium transition-colors hover:text-primary", pathname === "/about" && "text-primary")}
+                    className={cn("text-lg font-medium transition-colors hover:text-primary p-2", pathname === "/about" && "underline decoration-2 underline-offset-4 text-primary")}
                     onClick={() => setIsOpen(false)}
                   >
                     About
                   </Link>
                 </nav>
-                <div className="flex flex-col gap-2 mt-auto mb-6">
-                   <Button variant="outline" asChild className="w-full">
+                <div className="flex flex-col gap-2 mt-auto mb-6 p-2">
+                   <Button variant="outline" asChild className="w-full mb-2">
                     <Link href="/auth/login" onClick={() => setIsOpen(false)}>
                       Login
                     </Link>

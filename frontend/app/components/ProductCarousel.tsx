@@ -9,9 +9,12 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface ProductCarouselProps {
   title: string;
@@ -20,6 +23,24 @@ interface ProductCarouselProps {
 }
 
 export function ProductCarousel({ title, products, viewAllLink }: ProductCarouselProps) {
+  const [api, setApi] = useState<CarouselApi>();
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCanScrollPrev(api.canScrollPrev());
+    setCanScrollNext(api.canScrollNext());
+
+    api.on("select", () => {
+      setCanScrollPrev(api.canScrollPrev());
+      setCanScrollNext(api.canScrollNext());
+    });
+  }, [api]);
+
   if (products.length === 0) return null;
 
   return (
@@ -34,10 +55,11 @@ export function ProductCarousel({ title, products, viewAllLink }: ProductCarouse
           </Button>
         </div>
         <Carousel
+          setApi={setApi}
           opts={{
             align: "start",
           }}
-          className="w-full relative group"
+          className="w-full relative"
         >
           <CarouselContent className="-ml-4">
             {products.map((product) => (
@@ -46,8 +68,12 @@ export function ProductCarousel({ title, products, viewAllLink }: ProductCarouse
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="flex -left-4 md:-left-12 z-10" />
-          <CarouselNext className="flex -right-4 md:-right-12 z-10" />
+          <CarouselPrevious 
+            className={cn("flex -left-4 md:-left-12 z-10 transition-opacity", !canScrollPrev && "opacity-0 pointer-events-none")} 
+          />
+          <CarouselNext 
+            className={cn("flex -right-4 md:-right-12 z-10 transition-opacity", !canScrollNext && "opacity-0 pointer-events-none")} 
+          />
         </Carousel>
       </div>
     </section>

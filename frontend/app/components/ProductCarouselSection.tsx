@@ -10,7 +10,7 @@ interface ProductCarouselSectionProps {
 export async function ProductCarouselSection({ type, category, title }: ProductCarouselSectionProps) {
   let products = [];
   let viewAllLink = "/shop";
-  const FETCH_LIMIT = 12; // Fetch enough for the carousel
+  const FETCH_LIMIT = 6; // Limit to 6 items as requested
 
   try {
     if (type === "category" && category) {
