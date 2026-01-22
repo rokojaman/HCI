@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 export function Hero() {
   return (
     <section className="relative bg-zinc-100 dark:bg-zinc-900 overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6 py-20 md:py-32 flex flex-col items-center text-center">
+      <div className="container mx-auto px-4 md:px-6 py-12 md:py-24 flex flex-col items-center text-center">
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 mb-6 max-w-3xl">
           Discover the Best Deals on Top Quality Products
         </h1>

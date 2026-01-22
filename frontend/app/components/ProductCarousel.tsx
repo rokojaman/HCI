@@ -44,8 +44,8 @@ export function ProductCarousel({ title, products, viewAllLink }: ProductCarouse
   if (products.length === 0) return null;
 
   return (
-    <section className="py-12">
-      <div className="container px-4 md:px-6">
+    <section className="py-12 w-full">
+      <div className="w-full px-4 md:px-10 lg:px-16">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">{title}</h2>
           <Button variant="ghost" asChild>
@@ -69,7 +69,7 @@ export function ProductCarousel({ title, products, viewAllLink }: ProductCarouse
         >
           <CarouselContent className="-ml-4">
             {products.map((product) => (
-              <CarouselItem key={product.id} className="pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6">
+              <CarouselItem key={product.id} className="pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6">
                 <ProductCard product={product} />
               </CarouselItem>
             ))}
