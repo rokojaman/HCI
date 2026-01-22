@@ -33,7 +33,7 @@ export function ProductCard({ product }: ProductCardProps) {
         >
             {product.category}
         </Link>
-        <Link href={`/product/${product.id}`} className="block">
+        <Link href={`/product/${product.id}`} className="block w-fit">
             <h3 className="font-semibold text-lg leading-tight mb-2 line-clamp-2 transition-colors">
               <span className="hover:text-primary hover:underline transition-colors">
                 {product.title}
