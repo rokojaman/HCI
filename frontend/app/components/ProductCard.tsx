@@ -29,9 +29,9 @@ export function ProductCard({ product }: ProductCardProps) {
       <CardContent className="flex-1 p-4">
         <Link 
             href={`/shop?category=${product.category}`} 
-            className="text-sm text-zinc-500 mb-1 hover:text-primary hover:underline block w-fit"
+            className="text-sm text-zinc-500 mb-1 hover:text-primary hover:underline block w-fit capitalize"
         >
-            {product.category}
+            {product.category.replace(/-/g, " ")}
         </Link>
         <Link href={`/product/${product.id}`} className="block w-fit">
             <h3 className="font-semibold text-lg leading-tight mb-2 line-clamp-2 transition-colors">
