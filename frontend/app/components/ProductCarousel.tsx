@@ -58,6 +58,12 @@ export function ProductCarousel({ title, products, viewAllLink }: ProductCarouse
           setApi={setApi}
           opts={{
             align: "start",
+            slidesToScroll: 1,
+            breakpoints: {
+              '(min-width: 768px)': { slidesToScroll: 2 },
+              '(min-width: 1024px)': { slidesToScroll: 3 },
+              '(min-width: 1280px)': { slidesToScroll: 4 }
+            }
           }}
           className="w-full relative"
         >
@@ -68,11 +74,12 @@ export function ProductCarousel({ title, products, viewAllLink }: ProductCarouse
               </CarouselItem>
             ))}
           </CarouselContent>
+          {/* Arrows positioned for visibility on mobile */}
           <CarouselPrevious 
-            className={cn("flex -left-4 md:-left-12 z-10 transition-opacity", !canScrollPrev && "opacity-0 pointer-events-none")} 
+            className={cn("flex left-1 md:-left-12 z-10 transition-opacity", !canScrollPrev && "opacity-0 pointer-events-none")} 
           />
           <CarouselNext 
-            className={cn("flex -right-4 md:-right-12 z-10 transition-opacity", !canScrollNext && "opacity-0 pointer-events-none")} 
+            className={cn("flex right-1 md:-right-12 z-10 transition-opacity", !canScrollNext && "opacity-0 pointer-events-none")} 
           />
         </Carousel>
       </div>

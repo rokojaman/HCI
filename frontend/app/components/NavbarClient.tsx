@@ -159,7 +159,7 @@ export function NavbarClient({ categories }: NavbarClientProps) {
                         <ChevronDown className={cn("h-4 w-4 transition-transform", isCategoriesOpen && "rotate-180")} />
                       </button>
                     </CollapsibleTrigger>
-                    <CollapsibleContent className="space-y-2 mt-2">
+                    <CollapsibleContent className="space-y-2 mt-2 overflow-hidden data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
                       <div className="flex flex-col gap-2 pl-4 border-l ml-2">
                           {categories.map((category) => (
                               <Link
