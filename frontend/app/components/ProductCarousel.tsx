@@ -37,17 +37,17 @@ export function ProductCarousel({ title, products, viewAllLink }: ProductCarouse
           opts={{
             align: "start",
           }}
-          className="w-full"
+          className="w-full relative group"
         >
           <CarouselContent className="-ml-4">
             {products.map((product) => (
-              <CarouselItem key={product.id} className="pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+              <CarouselItem key={product.id} className="pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6">
                 <ProductCard product={product} />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden md:flex -left-12" />
-          <CarouselNext className="hidden md:flex -right-12" />
+          <CarouselPrevious className="flex -left-4 md:-left-12 z-10" />
+          <CarouselNext className="flex -right-4 md:-right-12 z-10" />
         </Carousel>
       </div>
     </section>

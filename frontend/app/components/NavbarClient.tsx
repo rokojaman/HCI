@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, User, LogIn } from "lucide-react";
+import { Menu, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -11,11 +11,14 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -27,12 +30,6 @@ export function NavbarClient({ categories }: NavbarClientProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Deals", href: "/deals" },
-    { name: "About", href: "/about" },
-  ];
-
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4 md:px-6 h-16 flex items-center justify-between gap-4">
@@ -42,51 +39,68 @@ export function NavbarClient({ categories }: NavbarClientProps) {
         </Link>
 
         {/* Desktop Navigation (Centered) */}
-        <nav className="hidden md:flex items-center justify-center flex-1 gap-8 text-sm font-medium">
-          <Link
-            href="/"
-            className={cn(
-              "transition-colors hover:text-foreground/80",
-              pathname === "/" ? "text-primary" : "text-foreground/60"
-            )}
-          >
-            Home
-          </Link>
-          
-          <DropdownMenu>
-            <DropdownMenuTrigger className={cn(
-              "transition-colors hover:text-foreground/80 outline-none flex items-center gap-1",
-              pathname.startsWith("/shop") ? "text-primary" : "text-foreground/60"
-            )}>
-              Shop
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 max-h-96 overflow-y-auto">
-              <DropdownMenuItem asChild>
-                <Link href="/shop" className="w-full cursor-pointer font-semibold">All Products</Link>
-              </DropdownMenuItem>
-              {categories.map((category) => (
-                <DropdownMenuItem key={category} asChild>
-                  <Link href={`/shop?category=${category}`} className="w-full cursor-pointer capitalize">
-                    {category.replace("-", " ")}
-                  </Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+        <div className="hidden md:flex justify-center flex-1">
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <Link href="/" legacyBehavior passHref>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), pathname === "/" && "text-primary")}>
+                    Home
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              
+              <NavigationMenuItem>
+                <Link href="/shop" legacyBehavior passHref>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), pathname === "/shop" && "text-primary")}>
+                    Shop
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
 
-          {navLinks.slice(1).map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className={cn(
-                "transition-colors hover:text-foreground/80",
-                pathname === link.href ? "text-primary" : "text-foreground/60"
-              )}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </nav>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className={cn(pathname.startsWith("/shop") && pathname.includes("category") && "text-primary")}>
+                    Categories
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] lg:grid-cols-3">
+                    {categories.map((category) => (
+                      <li key={category}>
+                        <Link
+                          href={`/shop?category=${category}`}
+                          legacyBehavior
+                          passHref
+                        >
+                          <NavigationMenuLink
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground capitalize"
+                          >
+                            {category.replace("-", " ")}
+                          </NavigationMenuLink>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <Link href="/deals" legacyBehavior passHref>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), pathname === "/deals" && "text-primary")}>
+                    Deals
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <Link href="/about" legacyBehavior passHref>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), pathname === "/about" && "text-primary")}>
+                    About
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
 
         {/* Auth Buttons (Desktop) */}
         <div className="hidden md:flex items-center gap-4 min-w-fit justify-end">
@@ -111,11 +125,11 @@ export function NavbarClient({ categories }: NavbarClientProps) {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right">
+            <SheetContent side="right" className="flex flex-col h-full">
               <SheetTitle>
                 <span className="text-primary font-bold">Quick</span>Buy Menu
               </SheetTitle>
-              <div className="flex flex-col gap-6 mt-6">
+              <div className="flex flex-col gap-6 mt-6 flex-1 overflow-y-auto">
                 <nav className="flex flex-col gap-4">
                   <Link
                     href="/"
@@ -126,23 +140,44 @@ export function NavbarClient({ categories }: NavbarClientProps) {
                   </Link>
                    <Link
                     href="/shop"
-                    className={cn("text-lg font-medium transition-colors hover:text-primary", pathname.startsWith("/shop") && "text-primary")}
+                    className={cn("text-lg font-medium transition-colors hover:text-primary", pathname === "/shop" && "text-primary")}
                     onClick={() => setIsOpen(false)}
                   >
-                    Shop (All)
+                    Shop
                   </Link>
-                  {navLinks.slice(1).map((link) => (
-                    <Link
-                      key={link.name}
-                      href={link.href}
-                      className={cn("text-lg font-medium transition-colors hover:text-primary", pathname === link.href && "text-primary")}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
+                  
+                  <div className="flex flex-col gap-2">
+                    <span className="text-lg font-medium text-foreground/60">Categories</span>
+                    <div className="grid grid-cols-2 gap-2 pl-4">
+                        {categories.map((category) => (
+                            <Link
+                                key={category}
+                                href={`/shop?category=${category}`}
+                                className="text-sm text-muted-foreground capitalize hover:text-primary"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                {category.replace("-", " ")}
+                            </Link>
+                        ))}
+                    </div>
+                  </div>
+
+                  <Link
+                    href="/deals"
+                    className={cn("text-lg font-medium transition-colors hover:text-primary", pathname === "/deals" && "text-primary")}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Deals
+                  </Link>
+                  <Link
+                    href="/about"
+                    className={cn("text-lg font-medium transition-colors hover:text-primary", pathname === "/about" && "text-primary")}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    About
+                  </Link>
                 </nav>
-                <div className="flex flex-col gap-2 mt-4">
+                <div className="flex flex-col gap-2 mt-auto mb-6">
                    <Button variant="outline" asChild className="w-full">
                     <Link href="/auth/login" onClick={() => setIsOpen(false)}>
                       Login

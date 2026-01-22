@@ -42,7 +42,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <Star className="h-4 w-4 fill-yellow-400 text-yellow-400 mr-1" />
           <span className="text-sm font-medium">{product.rating}</span>
           <span className="text-zinc-400 text-sm ml-1">
-            ({Math.floor(Math.random() * 100) + 10})
+            ({(product.id * 7) % 100 + 10})
           </span>
         </div>
         <div className="flex items-baseline gap-2">

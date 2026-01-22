@@ -2,13 +2,14 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Search, Loader2 } from "lucide-react";
+import { Search, Loader2, Tag } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { searchProductsAction } from "@/app/actions";
 import { Product } from "@/lib/types";
 import Image from "next/image";
+import Link from "next/link";
 
-// Implementing simple debounce logic inside component for now to avoid extra file
+// Implementing simple debounce logic inside component for now
 function useDebounceValue<T>(value: T, delay: number): T {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
@@ -28,7 +29,8 @@ function useDebounceValue<T>(value: T, delay: number): T {
 export function SearchSection() {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounceValue(query, 300);
-  const [results, setResults] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const router = useRouter();
@@ -37,14 +39,16 @@ export function SearchSection() {
   useEffect(() => {
     const fetchResults = async () => {
       if (!debouncedQuery.trim()) {
-        setResults([]);
+        setProducts([]);
+        setCategories([]);
         return;
       }
 
       setIsLoading(true);
       try {
         const data = await searchProductsAction(debouncedQuery);
-        setResults(data.products.slice(0, 5)); // Limit to 5 results
+        setProducts(data.products.slice(0, 5));
+        setCategories(data.categories);
         setShowResults(true);
       } catch (error) {
         console.error("Search failed:", error);
@@ -56,7 +60,6 @@ export function SearchSection() {
     fetchResults();
   }, [debouncedQuery]);
 
-  // Handle click outside to close dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
@@ -76,14 +79,20 @@ export function SearchSection() {
     setQuery("");
   };
 
+  const handleSelectCategory = (category: string) => {
+    router.push(`/shop?category=${category}`);
+    setShowResults(false);
+    setQuery("");
+  };
+
   return (
-    <div className="w-full max-w-2xl mx-auto relative z-40" ref={containerRef}>
+    <div className="w-full max-w-2xl mx-auto relative z-40 mt-6" ref={containerRef}>
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
         <Input
           type="search"
-          placeholder="Search for products..."
-          className="w-full pl-10 h-12 text-lg shadow-sm"
+          placeholder="Search for products or categories..."
+          className="w-full pl-10 h-12 text-lg shadow-sm bg-background"
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
@@ -98,38 +107,61 @@ export function SearchSection() {
         )}
       </div>
 
-      {showResults && results.length > 0 && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-popover text-popover-foreground rounded-md shadow-lg border overflow-hidden">
-          <ul>
-            {results.map((product) => (
-              <li
-                key={product.id}
-                className="flex items-center gap-3 p-3 hover:bg-muted cursor-pointer transition-colors"
-                onClick={() => handleSelectProduct(product.id)}
-              >
-                <div className="relative h-10 w-10 flex-shrink-0 bg-muted rounded overflow-hidden">
-                   <Image 
-                     src={product.thumbnail} 
-                     alt={product.title} 
-                     fill 
-                     className="object-cover"
-                     sizes="40px"
-                   />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-medium text-sm truncate">{product.title}</p>
-                  <p className="text-xs text-muted-foreground truncate">{product.category}</p>
-                </div>
-                <div className="text-sm font-semibold">${product.price}</div>
-              </li>
-            ))}
-          </ul>
+      {showResults && (products.length > 0 || categories.length > 0) && (
+        <div className="absolute top-full left-0 right-0 mt-2 bg-popover text-popover-foreground rounded-md shadow-lg border overflow-hidden max-h-[80vh] overflow-y-auto">
+          {categories.length > 0 && (
+            <div className="p-2 border-b">
+                <h3 className="text-xs font-semibold text-muted-foreground mb-2 px-2 uppercase tracking-wider">Categories</h3>
+                <ul>
+                    {categories.map((cat) => (
+                        <li 
+                            key={cat} 
+                            className="flex items-center gap-2 p-2 hover:bg-muted cursor-pointer rounded-sm transition-colors"
+                            onClick={() => handleSelectCategory(cat)}
+                        >
+                            <Tag className="h-4 w-4 text-muted-foreground" />
+                            <span className="capitalize">{cat.replace("-", " ")}</span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+          )}
+          
+          {products.length > 0 && (
+              <div className="p-2">
+                 <h3 className="text-xs font-semibold text-muted-foreground mb-2 px-2 uppercase tracking-wider">Products</h3>
+                 <ul>
+                    {products.map((product) => (
+                    <li
+                        key={product.id}
+                        className="flex items-center gap-3 p-2 hover:bg-muted cursor-pointer rounded-sm transition-colors"
+                        onClick={() => handleSelectProduct(product.id)}
+                    >
+                        <div className="relative h-10 w-10 flex-shrink-0 bg-muted rounded overflow-hidden">
+                        <Image 
+                            src={product.thumbnail} 
+                            alt={product.title} 
+                            fill 
+                            className="object-cover"
+                            sizes="40px"
+                        />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                        <p className="font-medium text-sm truncate">{product.title}</p>
+                        <p className="text-xs text-muted-foreground truncate">{product.category}</p>
+                        </div>
+                        <div className="text-sm font-semibold">${product.price}</div>
+                    </li>
+                    ))}
+                </ul>
+              </div>
+          )}
         </div>
       )}
       
-      {showResults && !isLoading && debouncedQuery && results.length === 0 && (
+      {showResults && !isLoading && debouncedQuery && products.length === 0 && categories.length === 0 && (
          <div className="absolute top-full left-0 right-0 mt-2 bg-popover text-popover-foreground rounded-md shadow-lg border p-4 text-center text-muted-foreground text-sm">
-            No products found.
+            No matches found.
          </div>
       )}
     </div>
