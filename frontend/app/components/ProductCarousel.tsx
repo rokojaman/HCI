@@ -91,21 +91,17 @@ export function ProductCarousel({
             Visible only when scrolling is possible. 
             On 2xl, if 6 items fit perfectly, they will automatically hide.
           */}
-          <CarouselPrevious
+          <CarouselPrevious 
             className={cn(
-              "absolute -left-12 md:-left-14 lg:-left-16 top-1/2 -translate-y-1/2 z-20 transition-all duration-300 xl:hidden",
-              !canScrollPrev
-                ? "opacity-0 pointer-events-none translate-x-4"
-                : "opacity-100 translate-x-0",
-            )}
+              "absolute -left-10 md:-left-12 lg:-left-14 top-1/2 -translate-y-1/2 z-20 transition-all duration-300 xl:hidden",
+              !canScrollPrev ? "opacity-0 pointer-events-none" : "opacity-100"
+            )} 
           />
-          <CarouselNext
+          <CarouselNext 
             className={cn(
-              "absolute -right-12 md:-right-14 lg:-right-16 top-1/2 -translate-y-1/2 z-20 transition-all duration-300 xl:hidden",
-              !canScrollNext
-                ? "opacity-0 pointer-events-none -translate-x-4"
-                : "opacity-100 translate-x-0",
-            )}
+              "absolute -right-10 md:-right-12 lg:-right-14 top-1/2 -translate-y-1/2 z-20 transition-all duration-300 xl:hidden",
+              !canScrollNext ? "opacity-0 pointer-events-none" : "opacity-100"
+            )} 
           />
         </Carousel>
       </div>
