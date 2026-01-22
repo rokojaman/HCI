@@ -34,8 +34,10 @@ export function ProductCard({ product }: ProductCardProps) {
             {product.category}
         </Link>
         <Link href={`/product/${product.id}`} className="block">
-            <h3 className="font-semibold text-lg leading-tight mb-2 line-clamp-2 hover:text-primary transition-colors hover:underline">
-            {product.title}
+            <h3 className="font-semibold text-lg leading-tight mb-2 line-clamp-2 transition-colors">
+              <span className="hover:text-primary hover:underline transition-colors">
+                {product.title}
+              </span>
             </h3>
         </Link>
         <div className="flex items-center mb-2">
