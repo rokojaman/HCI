@@ -9,7 +9,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  type CarouselApi
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -22,7 +22,11 @@ interface ProductCarouselProps {
   viewAllLink: string;
 }
 
-export function ProductCarousel({ title, products, viewAllLink }: ProductCarouselProps) {
+export function ProductCarousel({
+  title,
+  products,
+  viewAllLink,
+}: ProductCarouselProps) {
   const [api, setApi] = useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
@@ -39,7 +43,7 @@ export function ProductCarousel({ title, products, viewAllLink }: ProductCarouse
       setCanScrollPrev(api.canScrollPrev());
       setCanScrollNext(api.canScrollNext());
     });
-    
+
     api.on("reInit", () => {
       setCanScrollPrev(api.canScrollPrev());
       setCanScrollNext(api.canScrollNext());
@@ -53,14 +57,16 @@ export function ProductCarousel({ title, products, viewAllLink }: ProductCarouse
       {/* Large horizontal padding to accommodate buttons on sides without overlapping content */}
       <div className="w-full px-12 md:px-16 lg:px-20">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">{title}</h2>
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+            {title}
+          </h2>
           <Button variant="ghost" asChild>
             <Link href={viewAllLink} className="flex items-center gap-2">
               View All <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
         </div>
-        
+
         <Carousel
           setApi={setApi}
           opts={{
@@ -71,31 +77,35 @@ export function ProductCarousel({ title, products, viewAllLink }: ProductCarouse
         >
           <CarouselContent className="-ml-4">
             {products.map((product) => (
-              <CarouselItem 
-                key={product.id} 
-                className="pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6"
+              <CarouselItem
+                key={product.id}
+                className="pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6"
               >
                 <ProductCard product={product} />
               </CarouselItem>
             ))}
           </CarouselContent>
-          
+
           {/* 
             Buttons positioned outside the content area (using negative translate or absolute offsets)
             Visible only when scrolling is possible. 
             On 2xl, if 6 items fit perfectly, they will automatically hide.
           */}
-          <CarouselPrevious 
+          <CarouselPrevious
             className={cn(
               "absolute -left-12 md:-left-14 lg:-left-16 top-1/2 -translate-y-1/2 z-20 transition-all duration-300 xl:hidden",
-              !canScrollPrev ? "opacity-0 pointer-events-none translate-x-4" : "opacity-100 translate-x-0"
-            )} 
+              !canScrollPrev
+                ? "opacity-0 pointer-events-none translate-x-4"
+                : "opacity-100 translate-x-0",
+            )}
           />
-          <CarouselNext 
+          <CarouselNext
             className={cn(
               "absolute -right-12 md:-right-14 lg:-right-16 top-1/2 -translate-y-1/2 z-20 transition-all duration-300 xl:hidden",
-              !canScrollNext ? "opacity-0 pointer-events-none -translate-x-4" : "opacity-100 translate-x-0"
-            )} 
+              !canScrollNext
+                ? "opacity-0 pointer-events-none -translate-x-4"
+                : "opacity-100 translate-x-0",
+            )}
           />
         </Carousel>
       </div>
