@@ -1,6 +1,6 @@
-# Technology Stack
+# Technical Standards
 
-## Core Technologies
+## Technology Stack
 
 - **Framework:** Next.js (App Router)
 - **Language:** TypeScript
@@ -12,6 +12,60 @@
 - **Codebase:** All code files must be strictly TypeScript (`.ts`, `.tsx`). No JavaScript (`.js`, `.jsx`) files are permitted.
 - **Scaffolding & Configuration:** You MUST use the provided **Next.js MCP server** to initialize and configure the application.
 - **Component Management:** You MUST use the provided **shadcn MCP server** to install and manage UI components.
+
+## Next.js Core Principles
+
+All implementation must strictly follow modern Next.js best practices and conventions.
+
+### Architecture & Structure
+
+- Use **Next.js App Router** exclusively.
+- All routes, layouts, pages, and route segments **must live in `/app`**.
+- Do **not** use the Pages Router.
+- Each route must follow the App Router folder-based routing model.
+- Use `layout.tsx`, `page.tsx`, `loading.tsx`, `error.tsx`, and `not-found.tsx` where appropriate.
+
+### Component Design
+
+- Components must follow **single-responsibility principles**.
+- Large or complex components **must be split into smaller components**, each handling one concern.
+- Avoid monolithic components.
+- Prefer composition over deeply nested logic.
+- Components should be reusable, predictable, and minimal.
+
+### Component Placement
+
+- Route-specific components must live inside their corresponding `/app` route folders.
+- Shared non-UI components may live in `/app/components` or equivalent subfolders.
+- **shadcn/ui components must live exclusively in `/components/ui`**.
+- Do not place application logic inside `/components/ui`.
+
+### Routing & Navigation
+
+- Use **Next.js `Link` from `next/link`** for all internal navigation.
+- Do not use `<a>` tags for internal routes.
+- Use App Router navigation patterns only.
+- Routes must be statically analyzable and follow Next.js conventions.
+
+### Rendering & Data Flow
+
+- Prefer **Server Components by default**.
+- Use Client Components only when required (interactivity, state, effects).
+- Mark Client Components explicitly with `"use client"`.
+- Minimize client-side JavaScript.
+
+### Type Safety & Code Quality
+
+- All code must be written in **TypeScript**.
+- No JavaScript files are allowed.
+- Use strict typing and avoid `any`.
+- Follow consistent naming and file organization conventions.
+
+### Styling
+
+- Use **Tailwind CSS** exclusively for styling.
+- Do not use inline styles or alternative CSS frameworks.
+- Maintain responsive, mobile-first layouts.
 
 # Website Construction Guidelines
 
