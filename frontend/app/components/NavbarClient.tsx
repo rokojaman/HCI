@@ -49,19 +49,19 @@ export function NavbarClient({ categories }: NavbarClientProps) {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <Link href="/" legacyBehavior passHref>
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), pathname === "/" && "underline decoration-2 underline-offset-4 text-primary")}>
+                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), pathname === "/" && "underline decoration-2 underline-offset-4 text-primary")}>
+                  <Link href="/">
                     Home
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
               
               <NavigationMenuItem>
-                <Link href="/shop" legacyBehavior passHref>
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), pathname === "/shop" && "underline decoration-2 underline-offset-4 text-primary")}>
+                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), pathname === "/shop" && "underline decoration-2 underline-offset-4 text-primary")}>
+                  <Link href="/shop">
                     Shop
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
@@ -72,17 +72,14 @@ export function NavbarClient({ categories }: NavbarClientProps) {
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] lg:grid-cols-3">
                     {categories.map((category) => (
                       <li key={category}>
-                        <Link
-                          href={`/shop?category=${category}`}
-                          legacyBehavior
-                          passHref
+                        <NavigationMenuLink
+                          asChild
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground capitalize cursor-pointer"
                         >
-                          <NavigationMenuLink
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground capitalize"
-                          >
+                          <Link href={`/shop?category=${category}`}>
                             {category.replace("-", " ")}
-                          </NavigationMenuLink>
-                        </Link>
+                          </Link>
+                        </NavigationMenuLink>
                       </li>
                     ))}
                   </ul>
@@ -90,19 +87,19 @@ export function NavbarClient({ categories }: NavbarClientProps) {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <Link href="/deals" legacyBehavior passHref>
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), pathname === "/deals" && "underline decoration-2 underline-offset-4 text-primary")}>
+                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), pathname === "/deals" && "underline decoration-2 underline-offset-4 text-primary")}>
+                  <Link href="/deals">
                     Deals
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <Link href="/about" legacyBehavior passHref>
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), pathname === "/about" && "underline decoration-2 underline-offset-4 text-primary")}>
+                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), pathname === "/about" && "underline decoration-2 underline-offset-4 text-primary")}>
+                  <Link href="/about">
                     About
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>

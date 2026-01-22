@@ -87,13 +87,13 @@ export function ProductCarousel({ title, products, viewAllLink }: ProductCarouse
           */}
           <CarouselPrevious 
             className={cn(
-              "absolute -left-10 md:-left-12 top-1/2 -translate-y-1/2 z-20 transition-all duration-300",
+              "absolute -left-12 md:-left-14 lg:-left-16 top-1/2 -translate-y-1/2 z-20 transition-all duration-300 xl:hidden",
               !canScrollPrev ? "opacity-0 pointer-events-none translate-x-4" : "opacity-100 translate-x-0"
             )} 
           />
           <CarouselNext 
             className={cn(
-              "absolute -right-10 md:-right-12 top-1/2 -translate-y-1/2 z-20 transition-all duration-300",
+              "absolute -right-12 md:-right-14 lg:-right-16 top-1/2 -translate-y-1/2 z-20 transition-all duration-300 xl:hidden",
               !canScrollNext ? "opacity-0 pointer-events-none -translate-x-4" : "opacity-100 translate-x-0"
             )} 
           />
