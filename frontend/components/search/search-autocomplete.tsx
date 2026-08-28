@@ -217,7 +217,23 @@ function SearchAutocomplete({
   }
 
   function navigateTo(index: number) {
-    setRecentSearches(addRecentSearch(query))
+    if (index < matchedCategories.length) {
+      setRecentSearches(addRecentSearch(query))
+    } else {
+      const productIndex = index - matchedCategories.length
+      const product = visibleProducts[productIndex]
+      if (product) {
+        setRecentProducts(
+          addRecentProduct({
+            id: product.id,
+            title: product.title,
+            thumbnail: product.thumbnail,
+          })
+        )
+      } else {
+        setRecentSearches(addRecentSearch(query))
+      }
+    }
     router.push(hrefForIndex(index))
     setDropdownOpen(false)
     onNavigate?.()
@@ -515,7 +531,6 @@ function SearchAutocomplete({
                           role="option"
                           aria-selected={keyboardIndex === index}
                           onClick={() => {
-                            setRecentSearches(addRecentSearch(query))
                             setRecentProducts(
                               addRecentProduct({
                                 id: product.id,

@@ -81,7 +81,7 @@ const FAQ_GROUPS: {
 function FaqSection() {
   return (
     <section id="faq" className="scroll-mt-24 border-b border-border">
-      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 md:py-12 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 pt-6 pb-2 sm:px-6 md:py-12 lg:px-8">
         <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
           Frequently asked questions
         </h2>
@@ -89,12 +89,12 @@ function FaqSection() {
           Quick answers to the things shoppers ask us most.
         </p>
 
-        <div className="mt-6 divide-y divide-border border-y border-border md:mt-8">
+        <div className="mt-2 divide-border border-border sm:divide-y sm:border-y md:mt-8">
           {FAQ_GROUPS.map((group, groupIndex) => (
             <div
               key={group.id}
               id={group.id}
-              className="scroll-mt-24 py-5 md:grid md:grid-cols-[9.5rem_1fr] md:gap-x-10 md:py-7"
+              className="scroll-mt-24 py-4 md:grid md:grid-cols-[9.5rem_1fr] md:gap-x-10 md:py-7"
             >
               <h3 className="text-base font-semibold tracking-tight text-foreground md:pt-3.5">
                 {group.title}

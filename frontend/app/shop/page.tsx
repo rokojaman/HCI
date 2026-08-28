@@ -143,9 +143,11 @@ async function ShopPage({
               ))}
             </div>
           ) : (
-            <p className="mt-16 text-center text-muted-foreground">
-              No products match your filters.
-            </p>
+            <div className="min-h-[calc(100dvh-21rem)] sm:min-h-0">
+              <p className="mt-16 text-center text-muted-foreground">
+                No products match your filters.
+              </p>
+            </div>
           )}
 
           <div className="mt-10">
