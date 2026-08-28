@@ -19,7 +19,7 @@ function ProductInfo({ product }: { product: ProductDetail }) {
   const isLowStock = product.stock >= 1 && product.stock < 10
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-3 md:gap-5">
       <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
         {product.title}
       </h1>
@@ -61,11 +61,11 @@ function ProductInfo({ product }: { product: ProductDetail }) {
         <p className="text-sm text-muted-foreground">In Stock</p>
       )}
 
-      <p className="order-2 text-sm leading-relaxed text-muted-foreground sm:order-none">
+      <p className="order-2 text-sm leading-relaxed text-muted-foreground sm:order-none mt-2 sm:mt-0">
         {product.description}
       </p>
 
-      <div className="order-1 mt-1 flex flex-wrap items-center gap-3 sm:order-none">
+      <div className="order-1 mt-1 flex items-center gap-2 sm:order-none sm:gap-3">
         <AddToCart
           product={product}
           maxQuantity={Math.min(product.stock, 10)}

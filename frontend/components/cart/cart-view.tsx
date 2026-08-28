@@ -61,7 +61,7 @@ function CartView() {
 
   if (items.length === 0) {
     return (
-      <div className="flex flex-col items-center gap-3 py-24 text-center">
+      <div className="flex min-h-[calc(100dvh-7rem)] flex-col items-center gap-3 pt-12 text-center sm:min-h-0 sm:py-24">
         <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
           Your cart is empty
         </h1>
@@ -94,20 +94,20 @@ function CartView() {
 
   return (
     <div>
-      <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
+      <div className="flex flex-nowrap items-baseline justify-between gap-3">
+        <h1 className="text-2xl font-bold whitespace-nowrap text-foreground sm:text-3xl">
           Your Cart ({itemCount})
         </h1>
         <Link
           href="/shop"
-          className="flex items-center gap-1.5 text-base font-medium text-foreground hover:underline"
+          className="flex shrink-0 items-center gap-1 text-sm font-medium text-foreground hover:underline sm:gap-1.5 sm:text-base"
         >
           Continue Shopping
-          <ArrowRight className="size-4" />
+          <ArrowRight className="size-3.5 sm:size-4" />
         </Link>
       </div>
 
-      <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_400px] lg:items-start">
+      <div className="mt-2 gap-4 sm:mt-6 grid sm:gap-8 lg:grid-cols-[1fr_400px] lg:items-start">
         <div>
           {items.map((item) => (
             <CartLineItem key={item.id} item={item} />

@@ -33,25 +33,25 @@ function AddToCart({
   }
 
   return (
-    <div className="flex items-center gap-3">
-      <div className="flex h-11 items-center rounded-md border border-border">
+    <div className="flex items-center gap-2 sm:gap-3">
+      <div className="flex h-10 shrink-0 items-center rounded-md border border-border sm:h-11">
         <button
           type="button"
           onClick={() => setQuantity((q) => Math.max(1, q - 1))}
           disabled={disabled}
-          className="flex size-11 items-center justify-center text-foreground disabled:opacity-50"
+          className="flex size-10 items-center justify-center text-foreground disabled:opacity-50 sm:size-11"
           aria-label="Decrease quantity"
         >
           <Minus className="size-4" />
         </button>
-        <span className="w-8 text-center text-sm font-medium text-foreground">
+        <span className="w-6 text-center text-sm font-medium text-foreground sm:w-8">
           {quantity}
         </span>
         <button
           type="button"
           onClick={() => setQuantity((q) => Math.min(maxQuantity, q + 1))}
           disabled={disabled}
-          className="flex size-11 items-center justify-center text-foreground disabled:opacity-50"
+          className="flex size-10 items-center justify-center text-foreground disabled:opacity-50 sm:size-11"
           aria-label="Increase quantity"
         >
           <Plus className="size-4" />
@@ -59,7 +59,7 @@ function AddToCart({
       </div>
       <Button
         size="lg"
-        className="h-11 px-12 text-base"
+        className="h-10 px-6 text-base sm:h-11 sm:px-12"
         disabled={disabled}
         onClick={handleAdd}
       >

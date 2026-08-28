@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function SignupPage() {
   return (
-    <div className="mx-auto max-w-md px-4 pt-10 pb-16 sm:px-6 sm:pb-24 sm:pt-18 lg:max-w-lg">
+    <div className="mx-auto max-w-md px-4 pt-8 pb-16 sm:px-6 sm:pb-24 sm:pt-18 lg:max-w-lg">
       <div className="rounded-2xl border border-border bg-background p-7 shadow-sm sm:p-9 lg:p-10">
         <div className="flex flex-col gap-1.5 text-center">
           <h1 className="text-2xl font-bold tracking-tight text-foreground lg:text-3xl">

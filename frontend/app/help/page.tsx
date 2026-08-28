@@ -21,7 +21,7 @@ export default function HelpPage() {
   return (
     <>
       <section className="border-b border-border">
-        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 md:py-10 lg:px-8">
+        <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 md:py-10 lg:px-8">
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             How can we help?
           </h1>
@@ -31,13 +31,13 @@ export default function HelpPage() {
           </p>
           <nav
             aria-label="Jump to section"
-            className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2"
+            className="mt-5 grid grid-cols-1 items-center gap-x-5 gap-y-2 min-[360px]:grid-cols-[repeat(2,auto)] sm:grid-cols-[repeat(3,auto)] md:grid-cols-[repeat(5,auto)]"
           >
             {JUMP_LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="group inline-flex items-center gap-1.5 text-sm font-medium text-foreground"
+                className="group inline-flex items-center gap-1.5 text-sm font-medium whitespace-nowrap text-foreground"
               >
                 <span className="underline-offset-4 group-hover:underline">
                   {link.label}

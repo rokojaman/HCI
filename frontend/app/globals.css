@@ -126,5 +126,10 @@
   }
   html {
     @apply font-sans;
+    /* Reserve the scrollbar's space on every page so it doesn't appear/
+       disappear based on content height — without this, short pages
+       (login, signup, empty cart) render a few pixels wider than tall
+       ones, making the header visibly shift width between routes. */
+    scrollbar-gutter: stable;
   }
 }
