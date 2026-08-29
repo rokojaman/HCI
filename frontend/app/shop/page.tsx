@@ -1,3 +1,5 @@
+import type { Metadata } from "next"
+
 import { getCategories, getShopProducts } from "@/lib/dummyjson"
 import { ProductCard } from "@/components/home/product-card"
 import { ShopSidebar } from "@/components/shop/shop-sidebar"
@@ -16,6 +18,10 @@ import type { ShopSort } from "@/lib/dummyjson"
 // leaving a lonely orphan card.
 const PAGE_SIZE = 16
 const MAX_QUERY_DISPLAY_LENGTH = 40
+
+export const metadata: Metadata = {
+  title: "Shop · QuickBuy",
+}
 
 async function ShopPage({
   searchParams,
