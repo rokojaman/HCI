@@ -18,7 +18,7 @@
 
 ### Semester Project
 
-- Link to your production version: [**Production Version**](https://quickbuystore.vercel.app/)
+- Link to your production version: [**Production Version**](https://quickbuyshop.vercel.app/)
 - Link to your final report: [**Final Report**](URL_TO_FINAL_REPORT)
 
 ### Semester Assignments
