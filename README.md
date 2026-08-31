@@ -10,7 +10,7 @@
 
 ## Project Structure
 
-- **`/`**: The source code of your main project
+- **`/project`**: The source code of your main project
 - **`/assignments`**: Results of your semester assignments
 - **`/docs`**: If using GitHub for documentation (e.g., your final report in Markdown format)
 
@@ -19,7 +19,7 @@
 ### Semester Project
 
 - Link to your production version: [**Production Version**](https://quickbuyshop.vercel.app/)
-- Link to your final report: [**Final Report**](URL_TO_FINAL_REPORT)
+- Link to your final report: [**Final Report**](docs/final-report.md)
 
 ### Semester Assignments
 
